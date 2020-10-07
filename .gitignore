@@ -1,0 +1,16 @@
+build/
+sdk/
+.idea/
+.settings/
+.vscode/
+
+.a
+.dll
+.exe
+.lib
+.o
+.obj
+.so
+
+configurations.conf
+*.pem
