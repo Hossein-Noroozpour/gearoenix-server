@@ -1,20 +1,20 @@
-#include "slxs-configurations.hpp"
+#include "slxs-core-configurations.hpp"
 
 #include <fstream>
 
-#include "slxs-log.hpp"
+#include "../log/slxs-log.hpp"
 
 constexpr static const char* const cfg_file_name = "../configurations.conf";
 constexpr static const char* const cert_file_name = "../cert.pem";
 constexpr static const char* const key_file_name = "../key.pem";
 constexpr static const char* const dh_file_name = "../dh.pem";
 
-std::string slxs::Configurations::port;
-std::string slxs::Configurations::key_password;
+std::string slxs::core::Configurations::port;
+std::string slxs::core::Configurations::key_password;
 
-std::string slxs::Configurations::cert;
-std::string slxs::Configurations::key;
-std::string slxs::Configurations::dh;
+std::string slxs::core::Configurations::cert;
+std::string slxs::core::Configurations::key;
+std::string slxs::core::Configurations::dh;
 
 std::string read_entire_file(const char* const file_name) noexcept
 {
@@ -28,7 +28,7 @@ std::string read_entire_file(const char* const file_name) noexcept
     return buffer;
 }
 
-void slxs::Configurations::load() noexcept
+void slxs::core::Configurations::load() noexcept
 {
     std::ifstream file(cfg_file_name);
     if (!file)
@@ -46,9 +46,9 @@ void slxs::Configurations::load() noexcept
         }
     }
     if (port.empty())
-        LOG_F("port is not specifieyed in config file.")
+        LOG_F("port is not specified in config file.")
     if (key_password.empty())
-        LOG_F("key password is not specifieyed in config file.")
+        LOG_F("key password is not specified in config file.")
 
     cert = read_entire_file(cert_file_name);
     key = read_entire_file(key_file_name);

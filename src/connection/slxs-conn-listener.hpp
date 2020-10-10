@@ -1,10 +1,10 @@
-#ifndef SLXS_LISTENER_HPP
-#define SLXS_LISTENER_HPP
+#ifndef SLXS_CONNECTION_LISTENER_HPP
+#define SLXS_CONNECTION_LISTENER_HPP
 
 #include <boost/beast/ssl.hpp>
 #include <memory>
 
-namespace slxs {
+namespace slxs::connection {
 class Listener final : public std::enable_shared_from_this<Listener> {
 private:
     boost::asio::ip::tcp::acceptor acceptor;

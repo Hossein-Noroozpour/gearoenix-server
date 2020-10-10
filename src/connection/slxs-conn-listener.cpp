@@ -1,20 +1,20 @@
-#include "slxs-listener.hpp"
+#include "slxs-conn-listener.hpp"
 
 #include <boost/asio.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <string>
 
-#include "slxs-configurations.hpp"
-#include "slxs-log.hpp"
+#include "../core/slxs-core-configurations.hpp"
+#include "../log/slxs-log.hpp"
 
-void slxs::Listener::do_accept() noexcept
+void slxs::connection::Listener::do_accept() noexcept
 {
     acceptor.async_accept(
         boost::asio::make_strand(ioc),
         boost::beast::bind_front_handler(&Listener::on_accept, shared_from_this()));
 }
 
-void slxs::Listener::on_accept(
+void slxs::connection::Listener::on_accept(
     boost::beast::error_code ec,
     boost::asio::ip::tcp::socket socket) noexcept
 {
@@ -26,7 +26,7 @@ void slxs::Listener::on_accept(
     do_accept();
 }
 
-slxs::Listener::Listener(
+slxs::connection::Listener::Listener(
     boost::asio::io_context& ioc,
     boost::asio::ssl::context& ctx) noexcept
     : acceptor(ioc)
@@ -35,7 +35,7 @@ slxs::Listener::Listener(
 {
     const boost::asio::ip::tcp::endpoint endpoint {
         boost::asio::ip::make_address("0.0.0.0"),
-        static_cast<unsigned short>(std::stoi(Configurations::get_port()))
+        static_cast<unsigned short>(std::stoi(core::Configurations::get_port()))
     };
 
     boost::beast::error_code ec;
@@ -61,7 +61,7 @@ slxs::Listener::Listener(
     }
 }
 
-void slxs::Listener::run() noexcept
+void slxs::connection::Listener::run() noexcept
 {
     do_accept();
 }

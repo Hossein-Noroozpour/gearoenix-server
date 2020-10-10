@@ -1,9 +1,9 @@
-#ifndef SLXS_CONFIGURATIONS_HPP
-#define SLXS_CONFIGURATIONS_HPP
+#ifndef SLXS_CORE_CONFIGURATIONS_HPP
+#define SLXS_CORE_CONFIGURATIONS_HPP
 
 #include <string>
 
-namespace slxs {
+namespace slxs::core {
 class Configurations final {
 private:
     static std::string port;

@@ -41,14 +41,16 @@ MESSAGE(STATUS "SLXS SDK path is '${SLXS_SDK_PATH}'.")
 INCLUDE_DIRECTORIES(${SLXS_SDK_PATH}/boost)
 
 ADD_EXECUTABLE (SLXS
-${CMAKE_SOURCE_DIR}/src/slxs-configurations.cpp
-${CMAKE_SOURCE_DIR}/src/slxs-configurations.hpp
-${CMAKE_SOURCE_DIR}/src/slxs-keys.cpp
-${CMAKE_SOURCE_DIR}/src/slxs-keys.hpp
-${CMAKE_SOURCE_DIR}/src/slxs-listener.cpp
-${CMAKE_SOURCE_DIR}/src/slxs-listener.hpp
-${CMAKE_SOURCE_DIR}/src/slxs-log.cpp
-${CMAKE_SOURCE_DIR}/src/slxs-log.hpp
+${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-keys.cpp
+${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-keys.hpp
+${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-listener.cpp
+${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-listener.hpp
+${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-session.cpp
+${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-session.hpp
+${CMAKE_SOURCE_DIR}/src/core/slxs-core-configurations.cpp
+${CMAKE_SOURCE_DIR}/src/core/slxs-core-configurations.hpp
+${CMAKE_SOURCE_DIR}/src/log/slxs-log.cpp
+${CMAKE_SOURCE_DIR}/src/log/slxs-log.hpp
 ${CMAKE_SOURCE_DIR}/src/slxs-main.cpp)
 
 IF (MSVC)

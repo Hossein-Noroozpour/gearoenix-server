@@ -4,12 +4,12 @@
 #include <iostream>
 
 #ifdef DEBUG_MODE
-std::mutex slxs::Log::file_guard;
+std::mutex slxs::log::Log::file_guard;
 #endif
 
-std::ofstream slxs::Log::file;
+std::ofstream slxs::log::Log::file;
 
-void slxs::Log::initialize() noexcept
+void slxs::log::Log::initialize() noexcept
 {
     file.open("slxs.log", std::ios::out | std::ios::ate);
     if (!file.is_open() || !file.good()) {

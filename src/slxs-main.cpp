@@ -1,8 +1,8 @@
 
-#include "slxs-configurations.hpp"
-#include "slxs-keys.hpp"
-#include "slxs-listener.hpp"
-#include "slxs-log.hpp"
+#include "connection/slxs-conn-keys.hpp"
+#include "connection/slxs-conn-listener.hpp"
+#include "core/slxs-core-configurations.hpp"
+#include "log/slxs-log.hpp"
 
 // #include <boost/asio/dispatch.hpp>
 // #include <boost/asio/strand.hpp>
@@ -368,11 +368,11 @@
 
 int main(const int, const char* const* const)
 {
-    slxs::Log::initialize();
+    slxs::log::Log::initialize();
 
     LOG_D("SLXS application started.")
 
-    slxs::Configurations::load();
+    slxs::core::Configurations::load();
 
     const auto threads_count = static_cast<int>(std::thread::hardware_concurrency() * 4u);
 
@@ -380,9 +380,9 @@ int main(const int, const char* const* const)
 
     boost::asio::ssl::context ctx { boost::asio::ssl::context::tlsv13 };
 
-    slxs::load_server_certificate(ctx);
+    slxs::connection::load_server_certificate(ctx);
 
-    std::make_shared<slxs::Listener>(ioc, ctx)->run();
+    std::make_shared<slxs::connection::Listener>(ioc, ctx)->run();
 
     std::vector<std::thread> threads;
     threads.reserve(threads_count);
