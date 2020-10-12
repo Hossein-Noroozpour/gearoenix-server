@@ -6,6 +6,7 @@
 
 #include "../core/slxs-core-configurations.hpp"
 #include "../log/slxs-log.hpp"
+#include "slxs-conn-session.hpp"
 
 void slxs::connection::Listener::do_accept() noexcept
 {
@@ -19,9 +20,9 @@ void slxs::connection::Listener::on_accept(
     boost::asio::ip::tcp::socket socket) noexcept
 {
     if (ec) {
-        LOG_E("Problem in accepting: " << ec.message());
+        LOG_E("Problem in accepting: " << ec.message())
     } else {
-        // std::make_shared<session>(std::move(socket), ctx_, doc_root_)->run();
+        std::make_shared<Session>(std::move(socket), ctx)->run();
     }
     do_accept();
 }
