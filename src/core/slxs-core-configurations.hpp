@@ -18,6 +18,7 @@ private:
     static std::string key_password;
     static Database database;
     static std::string connection_string;
+    static int threads_count;
 
     static std::string cert;
     static std::string cert_key;
@@ -30,6 +31,7 @@ public:
     static const std::string& get_key_password() noexcept { return key_password; }
     static Database get_database() noexcept { return database; }
     static const std::string& get_connection_string() noexcept { return connection_string; }
+    static int get_threads_count() noexcept { return threads_count; }
 
         static const std::string& get_cert() noexcept { return cert; }
     static const std::string& get_cert_key() noexcept { return cert_key; }

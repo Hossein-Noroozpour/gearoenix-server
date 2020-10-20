@@ -12,6 +12,7 @@ std::string slxs::core::Configurations::port;
 std::string slxs::core::Configurations::key_password;
 slxs::core::Configurations::Database slxs::core::Configurations::database = slxs::core::Configurations::Database::Unknown;
 std::string slxs::core::Configurations::connection_string;
+int slxs::core::Configurations::threads_count = -1;
 
 std::string slxs::core::Configurations::cert;
 std::string slxs::core::Configurations::cert_key;
@@ -36,6 +37,7 @@ void slxs::core::Configurations::load() noexcept
     constexpr const char *const DATABASE = "database";
     constexpr const char *const ORACLE = "oracle";
     constexpr const char *const CONNECTION_STRING = "connection-string";
+    constexpr const char *const THREADS_COUNT = "threads-count";
     std::ifstream file(cfg_file_name);
     if (!file)
         LOG_F(cfg_file_name << " can not be opened.")
@@ -60,6 +62,9 @@ void slxs::core::Configurations::load() noexcept
             std::getline(file, connection_string);
             boost::trim(connection_string);
             LOG_D(CONNECTION_STRING << " in config is: " << connection_string)
+        } else if(THREADS_COUNT == key) {
+            file >> threads_count;
+            LOG_D(THREADS_COUNT << " in config is: " << threads_count)
         }
     }
     if (port.empty())
@@ -69,7 +74,9 @@ void slxs::core::Configurations::load() noexcept
     if (Database::Unknown == database)
         LOG_F(DATABASE << "  is not specified in config file.")
     if (connection_string.empty())
-        LOG_F(CONNECTION_STRING << "  is not specified in config file.")
+    LOG_F(CONNECTION_STRING << "  is not specified in config file.")
+    if (threads_count <= 0)
+    LOG_F(THREADS_COUNT << "  is not specified in config file.")
 
     cert = read_entire_file(cert_file_name);
     cert_key = read_entire_file(key_file_name);

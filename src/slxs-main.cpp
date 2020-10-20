@@ -3,6 +3,7 @@
 #include "connection/slxs-conn-listener.hpp"
 #include "core/slxs-core-configurations.hpp"
 #include "log/slxs-log.hpp"
+#include "database/slxs-db-connection-manager.hpp"
 
 // #include <boost/asio/dispatch.hpp>
 // #include <boost/asio/strand.hpp>
@@ -206,13 +207,15 @@ int main(const int, const char* const* const)
 
     slxs::core::Configurations::load();
 
-    const auto threads_count = static_cast<int>(std::thread::hardware_concurrency() * 4u);
+    const int threads_count = slxs::core::Configurations::get_threads_count();
 
     boost::asio::io_context ioc { threads_count };
 
     boost::asio::ssl::context ctx { boost::asio::ssl::context::tlsv13 };
 
     slxs::connection::load_server_certificate(ctx);
+
+    std::shared_ptr<slxs::database::ConnectionManager> db_manager(slxs::database::ConnectionManager::construct());
 
     std::make_shared<slxs::connection::Listener>(ioc, ctx)->run();
 

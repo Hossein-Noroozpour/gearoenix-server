@@ -41,6 +41,8 @@ MESSAGE(STATUS "SLXS SDK path is '${SLXS_SDK_PATH}'.")
 INCLUDE_DIRECTORIES(${SLXS_SDK_PATH}/boost)
 INCLUDE_DIRECTORIES(${SLXS_SDK_PATH}/oracle-sdk/sdk/include)
 
+LINK_DIRECTORIES(${SLXS_SDK_PATH}/oracle)
+
 ADD_EXECUTABLE(SLXS
         ${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-keys.cpp
         ${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-keys.hpp
@@ -52,11 +54,13 @@ ADD_EXECUTABLE(SLXS
         ${CMAKE_SOURCE_DIR}/src/core/slxs-core-configurations.hpp
         ${CMAKE_SOURCE_DIR}/src/database/oracle/slxs-db-ora-connection-manager.cpp
         ${CMAKE_SOURCE_DIR}/src/database/oracle/slxs-db-ora-connection-manager.hpp
+        ${CMAKE_SOURCE_DIR}/src/database/slxs-db-connection-manager.cpp
+        ${CMAKE_SOURCE_DIR}/src/database/slxs-db-connection-manager.hpp
         ${CMAKE_SOURCE_DIR}/src/log/slxs-log.cpp
         ${CMAKE_SOURCE_DIR}/src/log/slxs-log.hpp
         ${CMAKE_SOURCE_DIR}/src/slxs-main.cpp)
 
 IF (MSVC)
 ELSE ()
-    TARGET_LINK_LIBRARIES(SLXS pthread crypto ssl)
+    TARGET_LINK_LIBRARIES(SLXS pthread crypto ssl occi clntsh nnz19 clntshcore)
 ENDIF ()
