@@ -1,10 +1,7 @@
 #include "slxs-conn-keys.hpp"
-
+#include "../core/slxs-core-configurations.hpp"
 #include <boost/asio/buffer.hpp>
 #include <cstddef>
-#include <memory>
-
-#include "../core/slxs-core-configurations.hpp"
 
 void slxs::connection::load_server_certificate(boost::asio::ssl::context& ctx) noexcept
 {
@@ -21,8 +18,8 @@ void slxs::connection::load_server_certificate(boost::asio::ssl::context& ctx) n
         core::Configurations::get_cert().size()));
 
     ctx.use_private_key(boost::asio::buffer(
-                            core::Configurations::get_key().data(),
-                            core::Configurations::get_key().size()),
+                            core::Configurations::get_cert_key().data(),
+                            core::Configurations::get_cert_key().size()),
         boost::asio::ssl::context::file_format::pem);
 
     ctx.use_tmp_dh(boost::asio::buffer(

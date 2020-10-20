@@ -25,11 +25,11 @@ ENDIF ()
 # Warning generation
 IF (MSVC)
     STRING(REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS_NEW ${CMAKE_CXX_FLAGS})
-    IF(${CMAKE_CXX_FLAGS_NEW} STREQUAL ${CMAKE_CXX_FLAGS})
+    IF (${CMAKE_CXX_FLAGS_NEW} STREQUAL ${CMAKE_CXX_FLAGS})
         SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
-    ELSE()
+    ELSE ()
         SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_NEW}")
-    ENDIF()
+    ENDIF ()
     SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:MSVCRT")
 ELSE ()
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
@@ -39,19 +39,22 @@ SET(SLXS_SDK_PATH ${CMAKE_SOURCE_DIR}/sdk)
 MESSAGE(STATUS "SLXS SDK path is '${SLXS_SDK_PATH}'.")
 
 INCLUDE_DIRECTORIES(${SLXS_SDK_PATH}/boost)
+INCLUDE_DIRECTORIES(${SLXS_SDK_PATH}/oracle-sdk/sdk/include)
 
-ADD_EXECUTABLE (SLXS
-${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-keys.cpp
-${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-keys.hpp
-${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-listener.cpp
-${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-listener.hpp
-${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-session.cpp
-${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-session.hpp
-${CMAKE_SOURCE_DIR}/src/core/slxs-core-configurations.cpp
-${CMAKE_SOURCE_DIR}/src/core/slxs-core-configurations.hpp
-${CMAKE_SOURCE_DIR}/src/log/slxs-log.cpp
-${CMAKE_SOURCE_DIR}/src/log/slxs-log.hpp
-${CMAKE_SOURCE_DIR}/src/slxs-main.cpp)
+ADD_EXECUTABLE(SLXS
+        ${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-keys.cpp
+        ${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-keys.hpp
+        ${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-listener.cpp
+        ${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-listener.hpp
+        ${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-session.cpp
+        ${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-session.hpp
+        ${CMAKE_SOURCE_DIR}/src/core/slxs-core-configurations.cpp
+        ${CMAKE_SOURCE_DIR}/src/core/slxs-core-configurations.hpp
+        ${CMAKE_SOURCE_DIR}/src/database/oracle/slxs-db-ora-connection-manager.cpp
+        ${CMAKE_SOURCE_DIR}/src/database/oracle/slxs-db-ora-connection-manager.hpp
+        ${CMAKE_SOURCE_DIR}/src/log/slxs-log.cpp
+        ${CMAKE_SOURCE_DIR}/src/log/slxs-log.hpp
+        ${CMAKE_SOURCE_DIR}/src/slxs-main.cpp)
 
 IF (MSVC)
 ELSE ()

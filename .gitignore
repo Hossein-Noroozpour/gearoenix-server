@@ -3,6 +3,7 @@ sdk/
 .idea/
 .settings/
 .vscode/
+cmake-build-*/
 
 .a
 .dll

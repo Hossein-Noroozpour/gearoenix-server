@@ -1,2 +1,2 @@
 #!/bin/bash
-find ./src -iname *.hpp -o -iname *.cpp | xargs clang-format-10 -i --style=WebKit
+find ./tools -regex '.*\.\(cpp\|hpp\|cc\|cxx\)' -exec clang-format-10 -i -style=WebKit {} \;
