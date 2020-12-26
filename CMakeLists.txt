@@ -39,9 +39,9 @@ SET(SLXS_SDK_PATH ${CMAKE_SOURCE_DIR}/sdk)
 MESSAGE(STATUS "SLXS SDK path is '${SLXS_SDK_PATH}'.")
 
 INCLUDE_DIRECTORIES(${SLXS_SDK_PATH}/boost)
-INCLUDE_DIRECTORIES(${SLXS_SDK_PATH}/oracle-sdk/sdk/include)
+INCLUDE_DIRECTORIES(${SLXS_SDK_PATH}/oracle/sdk/include)
 
-LINK_DIRECTORIES(${SLXS_SDK_PATH}/oracle)
+SET(SLXS_ORACLE_PATH ${SLXS_SDK_PATH}/oracle)
 
 ADD_EXECUTABLE(SLXS
         ${CMAKE_SOURCE_DIR}/src/connection/slxs-conn-keys.cpp
@@ -62,5 +62,8 @@ ADD_EXECUTABLE(SLXS
 
 IF (MSVC)
 ELSE ()
-    TARGET_LINK_LIBRARIES(SLXS pthread crypto ssl occi clntsh nnz19 clntshcore)
+    TARGET_LINK_LIBRARIES(SLXS pthread crypto ssl
+            ${SLXS_ORACLE_PATH}/libocci.so.11.1
+            ${SLXS_ORACLE_PATH}/libclntsh.so.11.1
+            ${SLXS_ORACLE_PATH}/libnnz11.so)
 ENDIF ()

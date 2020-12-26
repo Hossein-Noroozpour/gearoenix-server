@@ -2,17 +2,16 @@
 #define SLXS_DATABASE_ORACLE_CONNECTION_MANAGER_HPP
 
 #include "../slxs-db-connection-manager.hpp"
-
-namespace oracle::occi {
-    class Environment;
-    class StatelessConnectionPool;
-}
+#include <oci.h>
 
 namespace slxs::database::oracle {
     class ConnectionManager final: public database::ConnectionManager {
     private:
-        ::oracle::occi::Environment *environment = nullptr;
-        ::oracle::occi::StatelessConnectionPool* pool = nullptr;
+        OCIEnv * environment = nullptr;
+        OCIError *error = nullptr;
+        OCISession *session = nullptr;
+        OCIServer *server = nullptr;
+        OCISvcCtx *service_context = nullptr;
     public:
         ConnectionManager() noexcept;
         ~ConnectionManager() noexcept final;
